@@ -17,10 +17,22 @@ class Rectangle{
         float perimeter;
     
     public:
+        Rectangle(){
+            cout << "Created Object using default constructor, count = " << ++count << endl;
+        }
+
         Rectangle(float length, float width){
             cout << "Created Object, count = " << ++count << "\n";
             this->length = length;
             this->width = width;
+        }
+
+        Rectangle(const Rectangle &r){
+            cout << "Created Object using copy constructor, count = " << ++count << "\n";
+            length = r.length;
+            width = r.width;
+            area = r.area;
+            perimeter = r.perimeter;
         }
 
         void getArea();
@@ -34,12 +46,12 @@ int Rectangle::count = 0;
 
 void Rectangle::getArea(){
     area = length * width;
-    cout << "Area is " << area << "\n";
+    cout << "Area is " << area << "\n\n";
 }
 
 void Rectangle::getPerimeter(){
     perimeter = 2 * length + 2 * width;
-    cout << "Perimeter is " << perimeter << "\n";
+    cout << "Perimeter is " << perimeter << "\n\n";
 }
 
 class Circle{
@@ -67,20 +79,34 @@ int Circle::count = 0;
 
 void Circle::getArea(){
     area = 3.14 * radius * radius;
-    cout << "Area is " << area << "\n";
+    cout << "\nArea is " << area << "\n";
 }
 
 void Circle::getCircumference(){
     circumference = 2 * 3.14 * radius;
-    cout << "Perimeter is " << circumference << "\n";
+    cout << "Circumference is " << circumference << "\n";
 }
 
 int main(){
     cout << "Hello World\n";
-    Rectangle r1(3.14, 2.72);
-    Rectangle r2(2.2, 4.4);
 
-    Circle c1(7);
+    cout << "Enter length and width: ";
+    float w, l;
+    cin >> w >> l;
+
+    cout << "Enter radius: ";
+    float r;
+    cin >> r;
+
+    Rectangle r1(w, l);
+    Rectangle r2;
+    Rectangle r3(r1);
+    r1.getArea();
+    r3.getPerimeter();
+
+    Circle c(r);
+    c.getArea();
+    c.getCircumference();
 
     return(0);
 }
